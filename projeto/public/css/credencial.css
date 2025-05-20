@@ -65,6 +65,119 @@ body {
 .banner span {
   font-weight: bold;
 }
-/* login */
 
+
+.login .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.card {
+  background-color: #6ec1e4;
+  padding: 30px;
+  border-radius: 20px;
+  width: 350px;
+  box-shadow: 5px 5px 0px var(--Preto);
+}
+
+.card-cadastro h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Se quiser usar imagem como título */
+.card-cadastro h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.card-cadastro h2 img {
+  max-width: 200px;
+}
+
+/* Formulário */
+.formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.campo span {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--Preto);
+}
+
+.campo input {
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e5e5e5;
+  font-size: 14px;
+}
+
+/* Botão de cadastro/login */
+.botao {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffdd33;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0px var(--Preto);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.botao:hover {
+  background-color: #f7c600;
+}
+
+/* Alertas de erro */
+.alerta_erro {
+  display: none;
+}
+
+.card_erro {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card_sucesso {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.alerta_erro {
+  display: none;
+  width: 100%;
+  max-width: 350px;
+  margin: 20px auto 0;
+}
+
+.card_sucesso {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 

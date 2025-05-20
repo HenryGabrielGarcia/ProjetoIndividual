@@ -77,36 +77,58 @@
 </html>
 
 <script>
-
-  
-
   function cadastrar() {
-    
     var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
+    var emailVar = email_input.value.trim();
     var senhaVar = senha_input.value;
-   
+    var confirmacaoVar = confirmacao_senha_input.value;
 
-    
+    function exibirMensagem(mensagem, tipo) {
+  cardErro.className = tipo === 'sucesso' ? 'card_sucesso' : 'card_erro';
+  cardErro.style.display = "block";
+  mensagem_erro.innerText = mensagem;
+  document.querySelector('.alerta_erro').style.display = 'block';
+}
+
+
+    // Validações com texto
     if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" 
+      nomeVar.length === 0 ||
+      emailVar.length === 0 ||
+      senhaVar.length === 0 ||
+      confirmacaoVar.length === 0
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
+      exibirMensagem("Por favor, preencha todos os campos.", "erro");
       return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
     }
 
-    
-    
+    if (!emailVar.includes("@") || !emailVar.includes(".")) {
+      exibirMensagem("O e-mail precisa conter '@' e '.'", "erro");
+      return false;
+    }
 
-    
+    var dominio = emailVar.toLowerCase();
+    if (
+      !dominio.endsWith(".com") &&
+      !dominio.endsWith(".com.br") &&
+      !dominio.endsWith(".edu") &&
+      !dominio.endsWith(".net")
+    ) {
+      exibirMensagem("O domínio do e-mail parece inválido.", "erro");
+      return false;
+    }
+
+    if (senhaVar.length < 6) {
+      exibirMensagem("A senha deve ter no mínimo 6 caracteres.", "erro");
+      return false;
+    }
+
+    if (senhaVar !== confirmacaoVar) {
+      exibirMensagem("As senhas não coincidem.", "erro");
+      return false;
+    }
+
+    // Envio ao backend
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
@@ -118,34 +140,24 @@
         senhaServer: senhaVar,
       }),
     })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+    .then(function (resposta) {
+      if (resposta.ok) {
+        exibirMensagem("Cadastro realizado com sucesso! Redirecionando para o login...", "sucesso");
 
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
+        setTimeout(() => {
+          window.location = "login.html";
+        }, 2000);
+      } else {
+        exibirMensagem("Erro ao tentar realizar o cadastro!", "erro");
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      exibirMensagem("Erro no servidor. Verifique sua conexão.", "erro");
+    });
 
     return false;
   }
-
-  
 
   function sumirMensagem() {
     cardErro.style.display = "none";

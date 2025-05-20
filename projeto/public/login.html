@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  
+
   <div class="login">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
@@ -54,8 +54,8 @@
   </div>
 
 
-  <div id="div_aguardar" style="display: none;">
-    <p>Aguarde...</p>
+  <div id="div_aguardar">
+    <p></p>
   </div>
 
 </body>
@@ -101,10 +101,37 @@
           sessionStorage.NOME_USUARIO = json.nome;
           sessionStorage.ID_USUARIO = json.id;
 
+          cardErro.className = "card_sucesso";
+          mensagem_erro.innerHTML = "Login efetuado com sucesso!";
+          document.querySelector(".alerta_erro").style.display = "block";
+
           setTimeout(function () {
-            window.location = "dashboard/aa.html"; 
+            window.location = "dashboard/aa.html";
           }, 1000);
         });
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.id;
+
+          
+            cardErro.className = "card_sucesso";
+            mensagem_erro.innerHTML = "Login efetuado com sucesso!";
+            document.querySelector(".alerta_erro").style.display = "block";
+
+            
+            setTimeout(function () {
+              window.location = "dashboard/aa.html";
+            }, 2000);
+          });
+        }
+
 
       } else {
         console.log("Houve um erro ao tentar realizar o login!");
