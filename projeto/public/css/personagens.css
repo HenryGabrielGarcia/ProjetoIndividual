@@ -1,0 +1,71 @@
+:root {
+  --vermelho: #E51C24;
+  --amarelo: #FFD700;
+  --preto: #1A1A1A;
+  --corTexto: #FFFFFF;
+  --azul: #3498DB;
+  --erro: #E74C3C;
+  --sucesso: #2ECC71;
+  --cinza: #2A2A2A;
+}
+
+
+header {
+  background-color: var(--cinza);
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid var(--vermelho);
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  color: var(--vermelho);
+  font-family: 'Bangers', cursive;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px 10px;
+  gap: 20px;
+}
+
+.card {
+  background-color: var(--cinza);
+  border: 2px solid #444;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 300px;
+  flex: 1 1 250px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--vermelho);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--vermelho);
+}
+
+
+.card.protagonista {
+  border-color: var(--amarelo);
+}
+
+.card.principal {
+  border-color: var(--azul);
+}
+
+.card.secundario {
+  border-color: var(--sucesso);
+}
+
+.card.vilao {
+  border-color: var(--erro);
+}

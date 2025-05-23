@@ -1,0 +1,87 @@
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.personagens {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.personagem {
+  border: 1px solid white;
+  padding: 10px;
+  width: 40%;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 15px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.vilao{
+    width:150px; 
+    height:auto;
+     margin-top:10px;
+}
+.personagens {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.personagem {
+  text-align: center;
+}
+
+.mark, .vilao {
+  height: 150px;
+  width: auto;
+  max-width: 150px;
+  border: 3px solid #222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin-top: 10px;
+  object-fit: contain; 
+}
+
+#mensagemTurno {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#botoesAcoes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#botoesAcoes button {
+  min-width: 180px; 
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1 1 auto; 
+}
+
+
+

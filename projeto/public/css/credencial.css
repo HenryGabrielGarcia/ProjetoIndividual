@@ -1,183 +1,92 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--Azul);
-}
-
 :root {
-  --amarelo: #FBD846;
-  --Azul: #0197D2;
-  --Preto: #000000;
+--vermelho: #E51C24; 
+--amarelo: #FFD700; 
+--preto: #1A1A1A; 
+--corTexto: #FFFFFF; 
+--azul: #3498DB; 
+--erro: #E74C3C; 
+--sucesso: #2ECC71; 
+--cinza: #2A2A2A; 
+}   
+
+
+.login-container, .cadastro-container {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: calc(100vh - 70px);
+padding: 40px 0;
+background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0,
+0, 0.7)), url('../assets/imgs/582112.jpg');
+background-size: cover;
+background-position: center;
 }
-
-.header {
-  background-color: var(--amarelo);
-  padding: 10px 0;
-  box-shadow: 0 2px 4px;
-  font-family: Arial, sans-serif;
-}
-
-.header .container {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.titulo {
-  font-size: 18px;
-  color: #222;
-  margin: 0;
-}
-
-.navbar {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar li {
-  color: #222;
-}
-
-.navbar li a {
-  text-decoration: none;
-  color: #222;
-}
-
-.banner {
-  background-color: var(--Azul);
-  color: var(--Preto);
-  padding: 100px 0;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-}
-
-.banner p {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.banner span {
-  font-weight: bold;
-}
-
-
-.login .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-
 .card {
-  background-color: #6ec1e4;
-  padding: 30px;
-  border-radius: 20px;
-  width: 350px;
-  box-shadow: 5px 5px 0px var(--Preto);
+background-color: var(--card-background);
+border-radius: 10px;
+padding: 30px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+width: 100%;
+max-width: 450px;
+text-align: center;
 }
-
-.card-cadastro h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.card h2 {
+font-family: 'Bangers', cursive;
+font-size: 2.2rem;
+color: var(--amarelo);
+margin-bottom: 25px;
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
-
-/* Se quiser usar imagem como título */
-.card-cadastro h2 {
-  margin: 0 0 20px 0;
-  text-align: center;
-}
-
-.card-cadastro h2 img {
-  max-width: 200px;
-}
-
-/* Formulário */
 .formulario {
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
+gap: 20px;
 }
-
 .campo {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
+display: flex;
+flex-direction: column;
+text-align: left;
+gap: 5px;
 }
-
 .campo span {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: var(--Preto);
+font-weight: bold;
+font-size: 0.9rem;
+}
+input {
+padding: 12px 15px;
+border-radius: 5px;
+border: 1px solid #444;
+background-color: #333;
+color: var(--corTexto);
+font-size: 18px;
 }
 
-.campo input {
-  padding: 10px;
-  border: none;
-  border-radius: 20px;
-  background-color: #e5e5e5;
-  font-size: 14px;
-}
-
-/* Botão de cadastro/login */
 .botao {
-  width: 100%;
-  padding: 10px;
-  background-color: #ffdd33;
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 2px 2px 0px var(--Preto);
-  cursor: pointer;
-  transition: 0.3s;
+background-color: var(--vermelho);
+color: var(--corTexto);
+padding: 12px;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+font-size: 15px;
+cursor: pointer;
 }
 
-.botao:hover {
-  background-color: #f7c600;
-}
 
-/* Alertas de erro */
 .alerta_erro {
-  display: none;
+display: none;
+margin-bottom: 20px;
 }
-
+.card_erro, .card_sucesso {
+padding: 15px;
+border-radius: 5px;
+margin-bottom: 20px;
+font-weight: bold;
+text-align: center;
+}
 .card_erro {
-  background-color: red;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  text-align: center;
+background-color: var(--erro);
 }
-
 .card_sucesso {
-  background-color: #4CAF50; 
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  text-align: center;
+background-color: var(--sucesso);
 }
-
-.alerta_erro {
-  display: none;
-  width: 100%;
-  max-width: 350px;
-  margin: 20px auto 0;
-}
-
-.card_sucesso {
-  background-color: green;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-

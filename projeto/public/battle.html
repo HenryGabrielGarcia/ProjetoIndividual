@@ -1,0 +1,279 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batalha - Projeto Invencível</title>
+  <link rel="shortcut icon" href="../assets/icon/icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/css/battle.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="container">
+      <h1 class="titulo">Projeto Invencível</h1>
+      <ul class="navbar">
+        <li><a href="index.html">Inicial</a></li>
+        <li><a href="personagens.html">Personagem</a></li>
+        <li>|</li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li>|</li>
+        <li class="agora"><a href="#">Batalha</a></li>
+        <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Batalha: Mark vs <span id="nomeVilao"></span></h1>
+
+    <div class="personagens">
+      <div class="personagem">
+        <h2>Mark</h2>
+        <p>Vida: <span id="vidaMark">300</span></p>
+        <p>Energia: <span id="energiaMark">100</span></p>
+        <img id="imagemMark" src="assets/imgs/quiz/Invincible_2_Mark_Grayson.webp" alt="Imagem do Mark Invencível" class="mark" />
+
+      </div>
+
+      <div class="personagem">
+        <h2 id="nomeVilaoHeader"></h2>
+        <p>Vida: <span id="vidaVilao">100</span></p>
+        <p>Energia: <span id="energiaVilao">100</span></p>
+        <img id="imagemVilao" src="./assets/viloes/" alt="Imagem do Vilão" class="vilao" />
+      </div>
+    </div>
+
+    <div id="mensagemTurno">É a vez do Mark atacar!</div>
+
+    <div id="botoesAcoes">
+      <button onclick="acaoSocoForte()">Soco Forte (-20 energia)</button>
+      <button onclick="acaoDefender()">Defender (-15 energia)</button>
+      <button onclick="acaoCurar()">Curar (-20 energia)</button>
+      <button onclick="acaoRecuperarEnergia()">Recuperar Energia (perde turno)</button>
+    </div>
+
+    <div id="mensagemResultado"></div>
+    <button onclick="reiniciar()" id="botaoReiniciar" style="display:none;">
+      Jogar Novamente
+    </button>
+  </div>
+</body>
+
+</html>
+
+<script>
+  var vidaMark = 300;
+  var energiaMark = 100;
+  var vidaVilao = 0;
+  var energiaVilao = 100;
+  var turnoDoMark = true;
+  var defesaAtivaMark = false;
+  var defesaAtivaVilao = false;
+  var vilaoAtual = null;
+
+  var lista_vilao = [
+    { nome: "Omni-Man", VidaMax: 150, energiaMax: 100, descricao: "Viltrumita extremamente poderoso.", id: 1 },
+    { nome: "Conquista", VidaMax: 200, energiaMax: 100, descricao: "Brutal e sádico guerreiro Viltrumita.", id: 2 },
+    { nome: "Battle Beast", VidaMax: 250, energiaMax: 100, descricao: "Amante da guerra e da força bruta.", id: 3 },
+    { nome: "Mark Sinistro", VidaMax: 180, energiaMax: 100, descricao: "Versão do mal do Mark.", id: 4 },
+    { nome: "Allen", VidaMax: 160, energiaMax: 100, descricao: "Vilão rápido e esperto.", id: 5 },
+    { nome: "Thragg", VidaMax: 300, energiaMax: 100, descricao: "Lider dos Viltrumitas", id: 6 }
+  ];
+
+  var elementoVidaMark = document.getElementById("vidaMark");
+  var elementoEnergiaMark = document.getElementById("energiaMark");
+  var elementoVidaVilao = document.getElementById("vidaVilao");
+  var elementoEnergiaVilao = document.getElementById("energiaVilao");
+  var nomeVilaoSpan = document.getElementById("nomeVilao");
+  var mensagemTurno = document.getElementById("mensagemTurno");
+  var mensagemResultado = document.getElementById("mensagemResultado");
+  var botaoReiniciar = document.getElementById("botaoReiniciar");
+  var imagemVilao = document.getElementById("imagemVilao");
+  var imagemMark = document.getElementById("imagemMark");
+  var botoesAcoes = document.getElementById("botoesAcoes");
+
+  function iniciarBatalha() {
+    var indiceAleatorio = Math.floor(Math.random() * lista_vilao.length);
+    vilaoAtual = lista_vilao[indiceAleatorio];
+
+    vidaVilao = vilaoAtual.VidaMax;
+    energiaVilao = vilaoAtual.energiaMax;
+
+
+    energiaMark = 100;
+    defesaAtivaMark = false;
+    defesaAtivaVilao = false;
+    turnoDoMark = true;
+
+    nomeVilaoSpan.innerText = vilaoAtual.nome;
+    document.getElementById("nomeVilaoHeader").innerText = vilaoAtual.nome;
+
+    elementoVidaMark.innerText = vidaMark;
+    elementoEnergiaMark.innerText = energiaMark;
+    elementoVidaVilao.innerText = vidaVilao;
+    elementoEnergiaVilao.innerText = energiaVilao;
+
+    imagemVilao.src = "./assets/viloes/" + vilaoAtual.id + ".png";
+    imagemVilao.alt = "Imagem do " + vilaoAtual.nome;
+
+    imagemMark.src = "assets/imgs/quiz/Invincible_2_Mark_Grayson.webp";
+    imagemMark.alt = "Imagem do Mark Invencível";
+
+    mensagemTurno.innerText = "É a vez do Mark atacar!";
+    mensagemResultado.innerText = "";
+    botoesAcoes.style.display = "block";
+    botaoReiniciar.style.display = "none";
+  }
+  function atualizarStatus() {
+    elementoVidaMark.innerText = vidaMark;
+    elementoEnergiaMark.innerText = energiaMark;
+    elementoVidaVilao.innerText = vidaVilao;
+    elementoEnergiaVilao.innerText = energiaVilao;
+  }
+
+  function verificarFimDoJogo() {
+    if (vidaMark <= 0) {
+      mensagemResultado.innerText = vilaoAtual.nome + " venceu!";
+      botoesAcoes.style.display = "none";
+      botaoReiniciar.style.display = "inline-block";
+      return true;
+    } else if (vidaVilao <= 0) {
+      mensagemResultado.innerText = "Mark derrotou " + vilaoAtual.nome + "! Preparando próximo vilão...";
+      botoesAcoes.style.display = "none";
+
+      
+      setTimeout(function () {
+        iniciarBatalha();
+      }, 2000);
+
+      return true;
+    }
+    return false;
+  }
+
+  function ataqueVilao() {
+    if (verificarFimDoJogo()) return;
+
+    var dano = Math.floor(Math.random() * 16) + 10;
+
+    if (defesaAtivaMark) {
+      dano = Math.floor(dano / 2);
+      defesaAtivaMark = false;
+    }
+
+    vidaMark -= dano;
+    if (vidaMark < 0) vidaMark = 0;
+    mensagemTurno.innerHTML = `${vilaoAtual.nome} atacou e causou ${dano} de dano!`;
+    atualizarStatus();
+
+    if (!verificarFimDoJogo()) {
+      turnoDoMark = true;
+      mensagemTurno.innerHTML += "<br>Agora é a vez do Mark.";
+      botoesAcoes.style.display = "block";
+    }
+  }
+
+  function perderTurnoVilao() {
+    mensagemTurno.innerHTML = `${vilaoAtual.nome} perdeu o turno!`;
+    turnoDoMark = true;
+    botoesAcoes.style.display = "block";
+  }
+
+  function realizarTurnoVilao() {
+    botoesAcoes.style.display = "none";
+    setTimeout(ataqueVilao, 1000);
+  }
+
+
+  function acaoSocoForte() {
+    if (!turnoDoMark) return;
+    if (energiaMark < 20) {
+      alert("Energia insuficiente para Soco Forte!");
+      return;
+    }
+
+    energiaMark -= 20;
+    var dano = Math.floor(Math.random() * 21) + 20;
+
+    if (defesaAtivaVilao) {
+      dano = Math.floor(dano / 2);
+      defesaAtivaVilao = false;
+    }
+
+    vidaVilao -= dano;
+    if (vidaVilao < 0) vidaVilao = 0;
+
+    mensagemTurno.innerHTML = `Mark usou Soco Forte e causou ${dano} de dano!`;
+    atualizarStatus();
+
+    if (!verificarFimDoJogo()) {
+      turnoDoMark = false;
+      realizarTurnoVilao();
+    } else {
+      botoesAcoes.style.display = "none";
+    }
+  }
+
+  function acaoDefender() {
+    if (!turnoDoMark) return;
+    if (energiaMark < 15) {
+      alert("Energia insuficiente para Defender!");
+      return;
+    }
+
+    energiaMark -= 15;
+    defesaAtivaMark = true;
+    mensagemTurno.innerHTML = "Mark está defendendo e reduzirá o próximo dano!";
+    atualizarStatus();
+
+    turnoDoMark = false;
+    realizarTurnoVilao();
+  }
+
+  function acaoCurar() {
+    if (!turnoDoMark) return;
+    if (energiaMark < 20) {
+      alert("Energia insuficiente para Curar!");
+      return;
+    }
+
+    energiaMark -= 20;
+    var cura = Math.floor(Math.random() * 21) + 15;
+    vidaMark += cura;
+    if (vidaMark > 300) vidaMark = 300;
+
+    mensagemTurno.innerHTML = `Mark se curou e recuperou ${cura} de vida!`;
+    atualizarStatus();
+
+    turnoDoMark = false;
+    realizarTurnoVilao();
+  }
+
+  function acaoRecuperarEnergia() {
+    if (!turnoDoMark) return;
+
+    var energiaRecuperada = Math.floor(Math.random() * 21) + 10;
+    energiaMark += energiaRecuperada;
+    if (energiaMark > 100) energiaMark = 100;
+
+    mensagemTurno.innerHTML = `Mark recuperou ${energiaRecuperada} de energia, mas perdeu o turno!`;
+    atualizarStatus();
+
+    turnoDoMark = false;
+    realizarTurnoVilao();
+  }
+
+  function reiniciar() {
+    vidaMark = 300;
+    energiaMark = 100;
+    iniciarBatalha();
+  }
+
+  window.onload = iniciarBatalha;
+</script>

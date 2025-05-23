@@ -3,66 +3,112 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Projeto Invencível</title>
-
-  <script src="./js/sessao.js"></script>
-
-  <link rel="shortcut icon" href="" type="image/x-icon">
   <link rel="stylesheet" href="./css/estilo.css">
+  <link rel="stylesheet" href="./css/navbar.css">
+  <link rel="shortcut icon" href="../assets/icon/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <div class="header">
+
+  <header class="header">
     <div class="container">
       <h1 class="titulo">Projeto Invencível</h1>
-      <ul class="navbar">
-        <li class="agora">
-          <a href="#">Inicial</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li>
-          <a href="cadastro.html">Cadastro</a>
-        </li>
-      </ul>
+      <nav>
+        <ul class="navbar">
+          <li class="agora"><a href="#">Inicial</a></li>
+          <li><a href="personagens.html">Personagem</a></li>
+          <li>|</li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li>|</li>
+          <li><a href="battle.html">Batalha</a></li>
+          <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <div class="banner">
+  <section class="banner">
     <div class="container">
-      <p>Conheça o mundo de <br><img src="assets/imgs/visual/Invencivel.png" alt="Invencível"></p>
+      <h2>HERÓI MAIS PODEROSO DO MUNDO</h2>
+      <p>Uma história épica sobre crescimento,
+        responsabilidade e o peso de um legado heroico</p>
     </div>
-  </div>
+  </section>
 
-  <div class="secao-invencivel">
-    <div class="container">
+  <section id="sobre" class="secao-invencivel">
+    <div class="container container-flex">
       <div class="conteudo-invencivel">
-        <img class="imagem-invencivel" src="assets/imgs/comic.jpg" alt="Invencível voando">
+        <h2>A SÉRIE</h2>
+        <p>Invencível é uma série de quadrinhos de super-heróis criada por Robert Kirkman e ilustrada por Cory Walker e
+          Ryan Ottley, publicada pela Image Comics. A história segue Mark Grayson, um adolescente normal, exceto pelo
+          fato de seu pai ser Omni-Man, o super-herói mais poderoso do planeta.</p>
+        <p>Quando Mark desenvolve seus próprios poderes aos 17 anos, ele começa sua jornada para se tornar um herói sob
+          a tutela de seu pai, apenas para descobrir que seu pai não é quem ele pensava que era.</p>
+        <p>A série ganhou grande popularidade com sua adaptação para animação pela Amazon Prime Video, trazendo uma
+          abordagem mais madura e violenta para o gênero de superheróis.</p>
+      </div>
+      <div class="imagem-invencivel">
+        <img src="../assets/imgs/comic.jpg  " alt="iamgem em quadrinhos">
         <div class="caixa-preta">
-          <div class="texto">
-            akjshdajksdh
-          </div>
+          <p class="texto">A série de quadrinhos foi publicada entre 2003 e 2018, com 144 edições que contam a história
+            completa de Mark Grayson.</p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-<div class="secao-criador">
-  <div class="container">
-    <div class="conteudo-criador">
-      <img class="imagem-criador" src="assets/imgs/ROBERT-KIRKMAN-640w.webp" alt="Criador da série">
-      <div class="caixa-preta">
-        <div class="texto">
-          dd
+  <section class="secao-invencivel">
+    <div class="container">
+      <h2 class="meio">PERSONAGENS PRINCIPAIS</h2>
+      <div class="cards-container">
+        <div class="card">
+          <h3>Mark Grayson / Invencível</h3>
+          <p>Protagonista da série, filho de Omni-Man e Debbie Grayson. Desenvolve poderes aos 17 anos e precisa lidar
+            com as responsabilidades de ser um super-herói enquanto ainda tenta viver uma vida normal como adolescente.
+          </p>
         </div>
+        <div class="card">
+          <h3>Nolan Grayson / Omni-Man</h3>
+          <p>Pai de Mark e o super-herói mais poderoso da Terra. Vindo do planeta Viltrum, ele esconde segredos sombrios
+            sobre sua verdadeira missão na Terra.</p>
+        </div>
+        <div class="card">
+          <h3>Samantha Eve Wilkins / Atom Eve</h3>
+          <p>Amiga e interesse amoroso de Mark. Possui poderes de manipular matéria e energia. Inteligente, idealista e
+            determinada a fazer o bem fora da atuação como heroína tradicional.</p>
+        </div>
+        <div class="card_pagina"><a href="personagens.html">Quer conhecer mais personagens</a></div>
+
+        <div><a href=""></a></div>
       </div>
     </div>
+  </section>
+  <section class="secao-projeto">
+    <div class="container">
+      <h2 class="meio">SOBRE O PROJETO</h2>
+      <p class="meio">Escolhi a série "Invencível" como tema do meu projeto individual porque ela mudou minha forma de
+        enxergar histórias de super-heróis e também influenciou minha trajetória pessoal e acadêmica. Sempre gostei
+        desse universo, mas estava preso às fórmulas já conhecidas da Marvel e DC. Quando conheci "Invencível", me
+        surpreendi com a profundidade da história, os conflitos reais e as reviravoltas marcantes..</p>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <p>Projeto Invencível - Trabalho Acadêmico</p>
+      <p>Desenvolvido com base na série criada por Robert
+        Kirkman</p>
+    </div>
+  </footer>
+</body>
 
-  </div>
-</div>
+</html>
+
+
+</body>
+
 </html>
