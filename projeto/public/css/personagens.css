@@ -39,13 +39,8 @@ h1 {
   padding: 20px;
   max-width: 300px;
   flex: 1 1 250px;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-  transition: transform 0.3s;
-}
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px var(--vermelho);
+ 
 }
 
 .card h3 {

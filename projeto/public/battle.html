@@ -37,7 +37,8 @@
         <h2>Mark</h2>
         <p>Vida: <span id="vidaMark">300</span></p>
         <p>Energia: <span id="energiaMark">100</span></p>
-        <img id="imagemMark" src="assets/imgs/quiz/Invincible_2_Mark_Grayson.webp" alt="Imagem do Mark Invencível" class="mark" />
+        <img id="imagemMark" src="assets/imgs/quiz/Invincible_2_Mark_Grayson.webp" alt="Imagem do Mark Invencível"
+          class="mark" />
 
       </div>
 
@@ -111,13 +112,13 @@
     defesaAtivaVilao = false;
     turnoDoMark = true;
 
-    nomeVilaoSpan.innerText = vilaoAtual.nome;
-    document.getElementById("nomeVilaoHeader").innerText = vilaoAtual.nome;
+    nomeVilaoSpan.innerHTML = vilaoAtual.nome;
+    document.getElementById("nomeVilaoHeader").innerHTML = vilaoAtual.nome;
 
-    elementoVidaMark.innerText = vidaMark;
-    elementoEnergiaMark.innerText = energiaMark;
-    elementoVidaVilao.innerText = vidaVilao;
-    elementoEnergiaVilao.innerText = energiaVilao;
+    elementoVidaMark.innerHTML = vidaMark;
+    elementoEnergiaMark.innerHTML = energiaMark;
+    elementoVidaVilao.innerHTML = vidaVilao;
+    elementoEnergiaVilao.innerHTML = energiaVilao;
 
     imagemVilao.src = "./assets/viloes/" + vilaoAtual.id + ".png";
     imagemVilao.alt = "Imagem do " + vilaoAtual.nome;
@@ -125,29 +126,29 @@
     imagemMark.src = "assets/imgs/quiz/Invincible_2_Mark_Grayson.webp";
     imagemMark.alt = "Imagem do Mark Invencível";
 
-    mensagemTurno.innerText = "É a vez do Mark atacar!";
-    mensagemResultado.innerText = "";
+    mensagemTurno.innerHTML = "É a vez do Mark atacar!";
+    mensagemResultado.inneHTML = "";
     botoesAcoes.style.display = "block";
     botaoReiniciar.style.display = "none";
   }
   function atualizarStatus() {
-    elementoVidaMark.innerText = vidaMark;
-    elementoEnergiaMark.innerText = energiaMark;
-    elementoVidaVilao.innerText = vidaVilao;
-    elementoEnergiaVilao.innerText = energiaVilao;
+    elementoVidaMark.innerHTML = vidaMark;
+    elementoEnergiaMark.innerHTML = energiaMark;
+    elementoVidaVilao.innerHTML = vidaVilao;
+    elementoEnergiaVilao.innerHTML = energiaVilao;
   }
 
   function verificarFimDoJogo() {
     if (vidaMark <= 0) {
-      mensagemResultado.innerText = vilaoAtual.nome + " venceu!";
+      mensagemResultado.innerHTML = vilaoAtual.nome + " venceu!";
       botoesAcoes.style.display = "none";
       botaoReiniciar.style.display = "inline-block";
       return true;
     } else if (vidaVilao <= 0) {
-      mensagemResultado.innerText = "Mark derrotou " + vilaoAtual.nome + "! Preparando próximo vilão...";
+      mensagemResultado.innerHTML = "Mark derrotou " + vilaoAtual.nome + "! Preparando próximo vilão...";
       botoesAcoes.style.display = "none";
 
-      
+
       setTimeout(function () {
         iniciarBatalha();
       }, 2000);

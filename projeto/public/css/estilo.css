@@ -99,12 +99,19 @@ color: var(--amarelo);
 margin-bottom: 15px;
 font-size: 30px;
 }
-.card_pagina{
+.card_pagina a{
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   text-decoration: none;
+  color: var(--amarelo);
+  border: 1px solid #E51C24;
+  width: 20%;
+  text-align: center;
+  margin-left: 470px;
+  background-color: var(--vermelho);
+  border-radius: 10px;
 }
 footer {
 background-color: var(--pretoMais);

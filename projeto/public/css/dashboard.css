@@ -1,0 +1,124 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #FFD700; /* Cor amarela para o título */
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Seção de boas-vindas */
+.welcome {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.welcome h2 {
+    font-size: 28px;
+    font-weight: normal;
+}
+
+/* Cards de estatísticas */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: normal;
+    color: #AAAAAA;
+}
+
+.card .number {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+/* Cores específicas para os números */
+.red {
+    color: #FF4444;
+}
+
+.yellow {
+    color: #FFD700;
+}
+
+.white {
+    color: #FFFFFF;
+}
+
+/* Seção de gráficos */
+.charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.chart-container h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: normal;
+    color: #AAAAAA;
+}
+
+/* Tabela de últimas batalhas */
+.last-battles {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.last-battles h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: normal;
+    color: #AAAAAA;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tr {
+    border-bottom: 1px solid #333333;
+}
+
+table tr:last-child {
+    border-bottom: none;
+}
+
+table td {
+    padding: 15px 10px;
+    color: #AAAAAA;
+}
