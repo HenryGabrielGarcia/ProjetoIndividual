@@ -82,9 +82,9 @@ display: grid;
 gap: 30px;
 }
 .meio{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 .card {
 background-color: var(--preto);
@@ -105,12 +105,12 @@ font-size: 30px;
   align-items: center;
   font-size: 20px;
   text-decoration: none;
-  color: var(--amarelo);
-  border: 1px solid #E51C24;
+  color: var(--corTexto);
+  border: 1px;
   width: 20%;
   text-align: center;
   margin-left: 470px;
-  background-color: var(--vermelho);
+  background-color: var(--preto);
   border-radius: 10px;
 }
 footer {

@@ -13,18 +13,16 @@
 
 <body>
 
-  <div class="header">
+   <div class="header">
     <div class="container">
       <h1 class="titulo">Projeto Invencível</h1>
       <ul class="navbar">
-        <li><a href="index.html">Inicial</a></li>
-        <li><a href="personagens.html">Personagem</a></li>
-        <li>|</li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="cadastro.html">Cadastro</a></li>
+       <li><a href="SobreOJogo.html">Sobre o Jogo</a></li>
         <li>|</li>
         <li class="agora"><a href="#">Batalha</a></li>
         <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
+        <li>|</li>
+        <li><a href="../index.html">Sair</a></li>
       </ul>
     </div>
   </div>
@@ -53,16 +51,19 @@
     <div id="mensagemTurno">É a vez do Mark atacar!</div>
 
     <div id="botoesAcoes">
-      <button onclick="acaoSocoForte()">Soco Forte (-20 energia)</button>
+      <button onclick="acaoSoco()">Soco (-20 energia)</button>
       <button onclick="acaoDefender()">Defender (-15 energia)</button>
       <button onclick="acaoCurar()">Curar (-20 energia)</button>
       <button onclick="acaoRecuperarEnergia()">Recuperar Energia (perde turno)</button>
+      <button onclick="perder()">Perde</button>
+      <button onclick="vilaoPerde()">Vilão Perde</button>
     </div>
 
     <div id="mensagemResultado"></div>
     <button onclick="reiniciar()" id="botaoReiniciar" style="display:none;">
       Jogar Novamente
     </button>
+    <button onclick="estatistica()" id="botaoEstatistica" style="display: none;">Estatística</button>
   </div>
 </body>
 
@@ -77,6 +78,8 @@
   var defesaAtivaMark = false;
   var defesaAtivaVilao = false;
   var vilaoAtual = null;
+  var ganhoVar = null;
+  
 
   var lista_vilao = [
     { nome: "Omni-Man", VidaMax: 150, energiaMax: 100, descricao: "Viltrumita extremamente poderoso.", id: 1 },
@@ -95,6 +98,7 @@
   var mensagemTurno = document.getElementById("mensagemTurno");
   var mensagemResultado = document.getElementById("mensagemResultado");
   var botaoReiniciar = document.getElementById("botaoReiniciar");
+  var botaoEstatistica = document.getElementById("botaoEstatistica");
   var imagemVilao = document.getElementById("imagemVilao");
   var imagemMark = document.getElementById("imagemMark");
   var botoesAcoes = document.getElementById("botoesAcoes");
@@ -120,16 +124,17 @@
     elementoVidaVilao.innerHTML = vidaVilao;
     elementoEnergiaVilao.innerHTML = energiaVilao;
 
-    imagemVilao.src = "./assets/viloes/" + vilaoAtual.id + ".png";
+    imagemVilao.src = "../assets/viloes/" + vilaoAtual.id + ".png";
     imagemVilao.alt = "Imagem do " + vilaoAtual.nome;
 
-    imagemMark.src = "assets/imgs/quiz/Invincible_2_Mark_Grayson.webp";
+    imagemMark.src = "../assets/imgs/quiz/Invincible_2_Mark_Grayson.webp";
     imagemMark.alt = "Imagem do Mark Invencível";
 
     mensagemTurno.innerHTML = "É a vez do Mark atacar!";
-    mensagemResultado.inneHTML = "";
+    mensagemResultado.innerHTML = "";
     botoesAcoes.style.display = "block";
     botaoReiniciar.style.display = "none";
+    botaoEstatistica.style.display = "none";
   }
   function atualizarStatus() {
     elementoVidaMark.innerHTML = vidaMark;
@@ -140,14 +145,67 @@
 
   function verificarFimDoJogo() {
     if (vidaMark <= 0) {
-      mensagemResultado.innerHTML = vilaoAtual.nome + " venceu!";
+      mensagemResultado.innerHTML = vilaoAtual.nome + " venceu! Você perdeu!";
       botoesAcoes.style.display = "none";
       botaoReiniciar.style.display = "inline-block";
+      botaoEstatistica.style.display = "inline-block";
+      mensagemTurno.innerHTML = ''
+      ganhoVar = false;
+      
+      fetch("/batalha/verificarFimDoJogo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ganhoServer: ganhoVar,
+          idUsuario: sessionStorage.ID_USUARIO,
+          idVilãoServer : vilaoAtual.id
+        }),
+      })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          console.log("Pontuação realizado com sucesso!", "sucesso");
+          
+        } else {
+          console.log("Erro ao tentar realizar a pontuação", "erro");
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        console.log("Erro no servidor. Verifique sua conexão.", "erro");
+      });
       return true;
     } else if (vidaVilao <= 0) {
       mensagemResultado.innerHTML = "Mark derrotou " + vilaoAtual.nome + "! Preparando próximo vilão...";
       botoesAcoes.style.display = "none";
+      mensagemTurno.innerHTML = ''
+      ganhoVar = true;
 
+       fetch("/batalha/verificarFimDoJogo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ganhoServer: ganhoVar,
+        idUsuario: sessionStorage.ID_USUARIO,
+        idVilãoServer : vilaoAtual.id
+
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          console.log("Pontuação realizado com sucesso!", "sucesso");
+
+        } else {
+          console.log("Erro ao tentar realizar a pontuação", "erro");
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        console.log("Erro no servidor. Verifique sua conexão.", "erro");
+      });
 
       setTimeout(function () {
         iniciarBatalha();
@@ -157,6 +215,16 @@
     }
     return false;
   }
+  function perder() {
+  vidaMark = 0;
+  atualizarStatus();
+  verificarFimDoJogo();
+}
+function vilaoPerde(){
+  vidaVilao = 0;
+  atualizarStatus();
+  verificarFimDoJogo();
+}
 
   function ataqueVilao() {
     if (verificarFimDoJogo()) return;
@@ -192,10 +260,10 @@
   }
 
 
-  function acaoSocoForte() {
+  function acaoSoco() {
     if (!turnoDoMark) return;
     if (energiaMark < 20) {
-      alert("Energia insuficiente para Soco Forte!");
+      alert("Energia insuficiente para Soco!");
       return;
     }
 
@@ -274,6 +342,9 @@
     vidaMark = 300;
     energiaMark = 100;
     iniciarBatalha();
+  }
+  function estatistica() {
+   window.location.href = "/dashboard/dashboard.html"
   }
 
   window.onload = iniciarBatalha;

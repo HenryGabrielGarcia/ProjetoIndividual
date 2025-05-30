@@ -10,22 +10,66 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="../css/dashboard.css">
   <link rel="stylesheet" href="/css/navbar.css">
+  <script src="/public/js/sessao.js"></script>
 </head>
 
 <body>
-  <div class="header">
+   <div class="header">
     <div class="container">
       <h1 class="titulo">Projeto Invencível</h1>
       <ul class="navbar">
-        <li><a href="../index.html">Inicial</a></li>
-        <li><a href="../personagens.html">Personagem</a></li>
+        <li><a href="../logged/SobreOJogo.html">Sobre o Jogo</a></li>
         <li>|</li>
-        <li><a href="../login.html">Login</a></li>
-        <li><a href="../cadastro.html">Cadastro</a></li>
-        <li>|</li>
-        <li><a href="../battle.html">Batalha</a></li>
+        <li><a href="../logged/battle.html">Batalha</a></li>
         <li class="agora"><a href="#">Dashboard</a></li>
+        <li>|</li>
+        <li><a href="../index.html">Sair</a></li>
       </ul>
     </div>
   </div>
+
+
+  <section class="inicio">
+            <h2>Bem-vindo, <span id="nome_input">jogador!</span></h2>
+        </section>
+        <section class="chart">
+            <div class="card">
+                <h3>TOTAL DE BATALHAS</h3>
+                <p class="numero"></p>
+            </div>
+            <div class="card">
+                <h3>VITÓRIAS</h3>
+                <p class="numero vermelho"></p>
+            </div>
+            <div class="card">
+                <h3>DERROTAS</h3>
+                <p class="numero amarelo"></p>
+            </div>
+            <div class="card">
+                <h3>TAXA DE VITÓRIA</h3>
+                <p class="numero">%</p>
+            </div>
+        </section>
+
+    
+        <section class="graficos">
+            <div class="graficos-container">
+                <h3>DESEMPENHO</h3>
+                <canvas id="performace"></canvas>
+            </div>
+            <div class="graficos-container">
+                <h3>INIMIGOS ENFRENTADOS</h3>
+                <canvas id="inimigos"></canvas>
+            </div>
+        </section>
+
+    
+    </div>
+</body>
+
+</html>
+
+<script>
+nome_input.innerHTML = sessionStorage.NOME_USUARIO
+</script>
   

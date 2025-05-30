@@ -24,9 +24,6 @@
         <li>|</li>
         <li class="agora"><a href="#">Login</a></li>
         <li><a href="cadastro.html">Cadastro</a></li>
-        <li>|</li>
-        <li><a href="battle.html">Batalha</a></li>
-        <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
       </ul>
     </div>
   </div>
@@ -102,39 +99,18 @@
           console.log(JSON.stringify(json));
           sessionStorage.EMAIL_USUARIO = json.email;
           sessionStorage.NOME_USUARIO = json.nome;
-          sessionStorage.ID_USUARIO = json.id;
+          sessionStorage.ID_USUARIO = json.idUsuario;
 
           cardErro.className = "card_sucesso";
           mensagem_erro.innerHTML = "Login efetuado com sucesso!";
           document.querySelector(".alerta_erro").style.display = "block";
 
           setTimeout(function () {
-            window.location = "dashboard/dashboard.html";
+            window.location = "logged/SobreOJogo.html";
           }, 1000);
         });
 
-        if (resposta.ok) {
-          console.log(resposta);
-
-          resposta.json().then(json => {
-            console.log(json);
-            console.log(JSON.stringify(json));
-            sessionStorage.EMAIL_USUARIO = json.email;
-            sessionStorage.NOME_USUARIO = json.nome;
-            sessionStorage.ID_USUARIO = json.id;
-
-
-            cardErro.className = "card_sucesso";
-            mensagem_erro.innerHTML = "Login efetuado com sucesso!";
-            document.querySelector(".alerta_erro").style.display = "block";
-
-
-            setTimeout(function () {
-              window.location = "dashboard/aa.html";
-            }, 2000);
-          });
-        }
-
+        
 
       } else {
         console.log("Houve um erro ao tentar realizar o login!");
