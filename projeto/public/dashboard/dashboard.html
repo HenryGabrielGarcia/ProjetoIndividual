@@ -11,10 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="/css/navbar.css">
-    <script src="/public/js/sessao.js"></script>
 </head>
 
-<body style="overflow: hidden">
+<body onload="estatisticasGerais(), vitoria(),derrota(),taxa()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Projeto Invencível</h1>
@@ -38,25 +37,25 @@
     <section class="chart">
         <div class="card">
             <h3>TOTAL DE BATALHAS</h3>
-            <p class="numero">
+            <p class="numero" id="total">
 
             </p>
         </div>
         <div class="card">
             <h3>VITÓRIAS</h3>
-            <p class="numero vermelho">
+            <p class="numero vermelho" id="vitoria">
 
             </p>
         </div>
         <div class="card">
             <h3>DERROTAS</h3>
-            <p class="numero amarelo">
+            <p class="numero amarelo" id="derrota">
 
             </p>
         </div>
         <div class="card">
             <h3>TAXA DE VITÓRIA</h3>
-            <p class="numero">
+            <p class="numero" id="taxa">
                 %</p>
         </div>
     </section>
@@ -80,54 +79,81 @@
 </html>
 
 <script>
-    nome_input.innerHTML = sessionStorage.NOME_USUARIO
+    nome_input.innerHTML = sessionStorage.NOME_USUARIO;
 
-    const ctx = document.getElementById('inimigos');
+    function estatisticasGerais() {
+        var id = sessionStorage.ID_USUARIO;
+        var span_total = document.getElementById('total');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Omni-Man', 'Conquista', 'Battle Beasts', 'Mark Sinistro', 'Mark-Sinistro', 'Allen'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        fetch(`/estatistica/total/${id}`)
+            .then(resposta => resposta.json())
+            .then(resposta => {
+                if (resposta && resposta.length > 0) {
+                    span_total.innerHTML = resposta[0].totalPartidas;
+                } else {
+                    span_total.innerHTML = '0';
                 }
-            }
-        }
-    });
+            })
+            .catch(err => {
+                console.error("Erro na requisição de total de batalhas:", err);
+                span_total.innerHTML = '0';
+            });
+    }
 
+    function vitoria() {
+        var id = sessionStorage.ID_USUARIO;
+        var span_vitoria = document.getElementById('vitoria');
 
-    const ctx1 = document.getElementById('grafico_barras');
+        fetch(`/estatistica/vitoria/${id}`)
+            .then(resposta => resposta.json())
+            .then(resposta => {
+                if (resposta && resposta.length > 0) {
+                    span_vitoria.innerHTML = resposta[0].totalVitorias;
+                } else {
+                    span_vitoria.innerHTML = '0';
+                }
+            })
+            .catch(err => {
+                console.error("Erro na requisição de vitórias:", err);
+                span_vitoria.innerHTML = '0';
+            });
+    }
 
-    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+    function derrota() {
+        var id = sessionStorage.ID_USUARIO;
+        var span_derrota = document.getElementById('derrota');
 
+        fetch(`/estatistica/derrota/${id}`)
+            .then(resposta => resposta.json())
+            .then(resposta => {
+                if (resposta && resposta.length > 0) {
+                    span_derrota.innerHTML = resposta[0].totalDerrotas;
+                } else {
+                    span_derrota.innerHTML = '0';
+                }
+            })
+            .catch(err => {
+                console.error("Erro na requisição de derrotas:", err);
+                span_derrota.innerHTML = '0';
+            });
+    }
 
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'Ultimas Batalhas',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        }]
-    };
+    function taxa() {
+        var id = sessionStorage.ID_USUARIO;
+        var span_taxa = document.getElementById('taxa');
 
-    const config = {
-        type: 'line',
-        data: data,
-    };
-
-
-    new Chart(ctx1, config);
-
-
-
+        fetch(`/estatistica/taxa/${id}`)
+            .then(resposta => resposta.json())
+            .then(resposta => {
+                if (resposta && resposta.length > 0) {
+                    span_taxa.innerHTML = resposta[0].taxaVitoria + '%';
+                } else {
+                    span_taxa.innerHTML = '0%';
+                }
+            })
+            .catch(err => {
+                console.error("Erro na requisição de taxa de vitória:", err);
+                span_taxa.innerHTML = '0%';
+            });
+    }
 </script>
