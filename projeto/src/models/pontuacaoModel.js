@@ -1,8 +1,8 @@
-var database = require("../database/config")
+var database = require("../database/config");
 
-function verificarFimDoJogo(ganhoVar,idUsuario,idVilão) {
+function salvarpontuacao(pontuacao, fkUsuario) {
     var instrucao = `
-        INSERT INTO Batalha (Usuário_IdUsuário,Vilão_idVilão,ganhos) VALUES (${idUsuario},${idVilão},${ganhoVar});
+        INSERT INTO Quiz (pontuacao, fkUsuario) VALUES ('${pontuacao}', '${fkUsuario}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -13,7 +13,7 @@ function BuscarPontuacao(idUsuario){
         select date_format(dataBatalha, '%Y%m%d') as Data, ganhos
         from Quiz
         where fkUsuario = ${idUsuario}
-        order by dataBatalha desc
+        order by data_jogada desc
         limit 10;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -21,6 +21,6 @@ function BuscarPontuacao(idUsuario){
 }
 
 module.exports = {
-    verificarFimDoJogo,
+    salvarpontuacao,
     BuscarPontuacao
 };

@@ -1,5 +1,19 @@
 var batalhaModel = require("../models/batalhaModel");
 
+function BuscarPontuacao(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    quizModel.BuscarPontuacao(idUsuario)
+    .then(function(resultado){
+        res.status(200).json(resultado);
+    })
+    .catch(function(erro){
+        console.error("erro ao buscar pontuação", erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 function verificarFimDoJogo(req, res) {
       var ganhoVar = req.body.ganhoServer;
       var idUsuario = req.body.idUsuario;
@@ -17,5 +31,6 @@ function verificarFimDoJogo(req, res) {
 }
 
 module.exports = {
-    verificarFimDoJogo
+    verificarFimDoJogo,
+    BuscarPontuacao
 }

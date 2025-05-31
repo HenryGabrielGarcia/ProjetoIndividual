@@ -2,74 +2,132 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Projeto Invencível </title>
-  <link rel="shortcut icon" href="../assets/icon/icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <script src="/public/js/sessao.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Projeto Invencível </title>
+    <link rel="shortcut icon" href="../assets/icon/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <script src="/public/js/sessao.js"></script>
 </head>
 
-<body>
-   <div class="header">
-    <div class="container">
-      <h1 class="titulo">Projeto Invencível</h1>
-      <ul class="navbar">
-        <li><a href="../logged/SobreOJogo.html">Sobre o Jogo</a></li>
-        <li>|</li>
-        <li><a href="../logged/battle.html">Batalha</a></li>
-        <li class="agora"><a href="#">Dashboard</a></li>
-        <li>|</li>
-        <li><a href="../index.html">Sair</a></li>
-      </ul>
+<body style="overflow: hidden">
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">Projeto Invencível</h1>
+            <ul class="navbar">
+                <li><a href="../logged/SobreOJogo.html">Sobre o Jogo</a></li>
+                <li>|</li>
+                <li><a href="../logged/battle.html">Batalha</a></li>
+                <li class="agora"><a href="#">Dashboard</a></li>
+                <li>|</li>
+                <li><a href="../index.html">Sair</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
 
 
-  <section class="inicio">
-            <h2>Bem-vindo, <span id="nome_input">jogador!</span></h2>
-        </section>
-        <section class="chart">
-            <div class="card">
-                <h3>TOTAL DE BATALHAS</h3>
-                <p class="numero"></p>
-            </div>
-            <div class="card">
-                <h3>VITÓRIAS</h3>
-                <p class="numero vermelho"></p>
-            </div>
-            <div class="card">
-                <h3>DERROTAS</h3>
-                <p class="numero amarelo"></p>
-            </div>
-            <div class="card">
-                <h3>TAXA DE VITÓRIA</h3>
-                <p class="numero">%</p>
-            </div>
-        </section>
+    <section class="inicio">
+        <h2>Bem-vindo, <span id="nome_input">jogador!</span> <span
+                style="display: flex; justify-content: center; align-items: center;">Veja aqui as estatisticas da suas
+                batalhas!</span></h2>
+    </section>
+    <section class="chart">
+        <div class="card">
+            <h3>TOTAL DE BATALHAS</h3>
+            <p class="numero">
 
-    
-        <section class="graficos">
-            <div class="graficos-container">
-                <h3>DESEMPENHO</h3>
-                <canvas id="performace"></canvas>
-            </div>
-            <div class="graficos-container">
-                <h3>INIMIGOS ENFRENTADOS</h3>
-                <canvas id="inimigos"></canvas>
-            </div>
-        </section>
+            </p>
+        </div>
+        <div class="card">
+            <h3>VITÓRIAS</h3>
+            <p class="numero vermelho">
 
-    
+            </p>
+        </div>
+        <div class="card">
+            <h3>DERROTAS</h3>
+            <p class="numero amarelo">
+
+            </p>
+        </div>
+        <div class="card">
+            <h3>TAXA DE VITÓRIA</h3>
+            <p class="numero">
+                %</p>
+        </div>
+    </section>
+
+
+    <section class="graficos">
+        <div class="graficos-container">
+            <h3>DESEMPENHO</h3>
+            <canvas id="grafico_barras"></canvas>
+        </div>
+        <div class="graficos-container">
+            <h3>INIMIGOS ENFRENTADOS</h3>
+            <canvas id="inimigos"></canvas>
+        </div>
+    </section>
+
+
     </div>
 </body>
 
 </html>
 
 <script>
-nome_input.innerHTML = sessionStorage.NOME_USUARIO
+    nome_input.innerHTML = sessionStorage.NOME_USUARIO
+
+    const ctx = document.getElementById('inimigos');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Omni-Man', 'Conquista', 'Battle Beasts', 'Mark Sinistro', 'Mark-Sinistro', 'Allen'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    const ctx1 = document.getElementById('grafico_barras');
+
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Ultimas Batalhas',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+    };
+
+
+    new Chart(ctx1, config);
+
+
+
 </script>
-  
