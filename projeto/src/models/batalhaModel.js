@@ -8,19 +8,8 @@ function verificarFimDoJogo(ganhoVar,idUsuario,idVilão) {
     return database.executar(instrucao);
 }
 
-function BuscarPontuacao(idUsuario){
-    var instrucao = `
-        select date_format(dataBatalha, '%Y%m%d') as Data, ganhos
-        from Quiz
-        where fkUsuario = ${idUsuario}
-        order by dataBatalha desc
-        limit 10;
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
+
 
 module.exports = {
-    verificarFimDoJogo,
-    BuscarPontuacao
+    verificarFimDoJogo
 };

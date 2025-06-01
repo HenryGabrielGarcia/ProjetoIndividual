@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 
-<body onload="estatisticasGerais(), vitoria(),derrota(),taxa()">
+<body onload="estatisticasGerais(), vitoria(),derrota(),taxa(),buscarTodasAsLutas()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Projeto Invencível</h1>
             <ul class="navbar">
                 <li><a href="../logged/SobreOJogo.html">Sobre o Jogo</a></li>
                 <li>|</li>
-                <li><a href="../logged/battle.html">Batalha</a></li>
+                <li><a href="../logged/battle.html">inimigo</a></li>
                 <li class="agora"><a href="#">Dashboard</a></li>
                 <li>|</li>
                 <li><a href="../index.html">Sair</a></li>
@@ -30,9 +30,7 @@
 
 
     <section class="inicio">
-        <h2>Bem-vindo, <span id="nome_input">jogador!</span> <span
-                style="display: flex; justify-content: center; align-items: center;">Veja aqui as estatisticas da suas
-                batalhas!</span></h2>
+        <h2>Bem-vindo, <span id="nome_input">jogador!</span> </h2>
     </section>
     <section class="chart">
         <div class="card">
@@ -71,21 +69,22 @@
             <canvas id="inimigos"></canvas>
         </div>
     </section>
-
-
-    </div>
+    
+    
+</div>
 </body>
 
 </html>
 
 <script>
     nome_input.innerHTML = sessionStorage.NOME_USUARIO;
-
+    var idUsuario = sessionStorage.ID_USUARIO;
+    
     function estatisticasGerais() {
-        var id = sessionStorage.ID_USUARIO;
+        
         var span_total = document.getElementById('total');
 
-        fetch(`/estatistica/total/${id}`)
+        fetch(`/estatistica/total/${idUsuario}`)
             .then(resposta => resposta.json())
             .then(resposta => {
                 if (resposta && resposta.length > 0) {
@@ -95,16 +94,16 @@
                 }
             })
             .catch(err => {
-                console.error("Erro na requisição de total de batalhas:", err);
+                console.error("Erro na requisição de total de inimigos:", err);
                 span_total.innerHTML = '0';
             });
     }
 
     function vitoria() {
-        var id = sessionStorage.ID_USUARIO;
+        
         var span_vitoria = document.getElementById('vitoria');
 
-        fetch(`/estatistica/vitoria/${id}`)
+        fetch(`/estatistica/vitoria/${idUsuario}`)
             .then(resposta => resposta.json())
             .then(resposta => {
                 if (resposta && resposta.length > 0) {
@@ -120,10 +119,10 @@
     }
 
     function derrota() {
-        var id = sessionStorage.ID_USUARIO;
+        
         var span_derrota = document.getElementById('derrota');
 
-        fetch(`/estatistica/derrota/${id}`)
+        fetch(`/estatistica/derrota/${idUsuario}`)
             .then(resposta => resposta.json())
             .then(resposta => {
                 if (resposta && resposta.length > 0) {
@@ -139,10 +138,10 @@
     }
 
     function taxa() {
-        var id = sessionStorage.ID_USUARIO;
+        
         var span_taxa = document.getElementById('taxa');
 
-        fetch(`/estatistica/taxa/${id}`)
+        fetch(`/estatistica/taxa/${idUsuario}`)
             .then(resposta => resposta.json())
             .then(resposta => {
                 if (resposta && resposta.length > 0) {
@@ -156,4 +155,141 @@
                 span_taxa.innerHTML = '0%';
             });
     }
+
+var lutasOmni;
+var lutasConquista;
+var lutasAllen;
+var lutasMarkSinistro;
+var lutasBattleBeast;
+var lutasThragg;
+
+ function buscarOmni() {
+
+        fetch(`/inimigo/omni/${idUsuario}`)
+        
+            .then(res => res.json())
+            .then(res => {
+                lutasOmni = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    function buscarConquista() {
+        
+
+        fetch(`/inimigo/conquista/${idUsuario}`)
+        
+            .then(res => res.json())
+            .then(res => {
+                lutasConquista = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    function buscarBattlebeast() {
+        
+
+        fetch(`/inimigo/battlebeast/${idUsuario}`)
+        
+            .then(res => res.json())
+            .then(res => {
+                lutasBattleBeast = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    function buscarAllen() {
+        
+
+        fetch(`/inimigo/allen/${idUsuario}`)
+        
+            .then(res => res.json())
+            .then(res => {
+                lutasAllen = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    function buscarMarkSinistro() {
+        
+
+        fetch(`/inimigo/marksinistro/${idUsuario}`)
+        
+            .then(res => res.json())
+            .then(res => {
+                lutasMarkSinistro = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    function buscarThragg() {
+       
+
+        fetch(`/inimigo/thragg/${idUsuario}`)
+
+            .then(res => res.json())
+            .then(res => {
+                lutasThragg = res;
+                verificarFinal();
+            })
+            .catch(() => verificarFinal());
+    }
+
+    var contadorRespostas = 0;
+    
+    function buscarTodasAsLutas() {
+        contadorRespostas = 0;
+        buscarOmni();
+        buscarConquista();
+        buscarBattlebeast();
+        buscarAllen();
+        buscarMarkSinistro();
+        buscarThragg(); 
+       
+    }
+
+
+function verificarFinal() {
+    contadorRespostas++;
+    if (contadorRespostas === 6) {
+        criarGrafico();
+    }
+}
+
+
+    function criarGrafico() {
+        const ctx = document.getElementById('inimigos');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Omni-Man', 'Conquista', 'Allen', 'Mark-Sinistro', 'Battle-Beast', 'Thragg'],
+                datasets: [{
+                    label: 'Quantidade de Lutas',
+                    data: [lutasOmni[0].quantidadeLutas, lutasConquista[0].quantidadeLutas, lutasAllen[0].quantidadeLutas, lutasMarkSinistro[0].quantidadeLutas, lutasBattleBeast[0].quantidadeLutas, lutasThragg[0].quantidadeLutas],
+                    backgroundColor: [
+                        '#ff0000', '#ffa500', '#0000ff',
+                        '#800080', '#008000', '#4444dd'
+                    ],
+                    borderColor: '#000',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    
 </script>
