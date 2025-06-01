@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 
-<body onload="estatisticasGerais(), vitoria(),derrota(),taxa(),buscarTodasAsLutas()">
+<body onload="estatisticasGerais(), vitoria(),derrota(),taxa(),buscarTodasAsLutas(),desempenhoJogador(),resultados()">
     <div class="header">
         <div class="container">
             <h1 class="titulo">Projeto Invencível</h1>
@@ -41,19 +41,19 @@
         </div>
         <div class="card">
             <h3>VITÓRIAS</h3>
-            <p class="numero vermelho" id="vitoria">
+            <p class="numero verde" id="vitoria">
 
             </p>
         </div>
         <div class="card">
             <h3>DERROTAS</h3>
-            <p class="numero amarelo" id="derrota">
+            <p class="numero vermelho" id="derrota">
 
             </p>
         </div>
         <div class="card">
             <h3>TAXA DE VITÓRIA</h3>
-            <p class="numero" id="taxa">
+            <p class="numero amarelo" id="taxa">
                 %</p>
         </div>
     </section>
@@ -69,19 +69,19 @@
             <canvas id="inimigos"></canvas>
         </div>
     </section>
-    
-    
-</div>
+
+
+    </div>
 </body>
 
 </html>
 
+
 <script>
     nome_input.innerHTML = sessionStorage.NOME_USUARIO;
     var idUsuario = sessionStorage.ID_USUARIO;
-    
+
     function estatisticasGerais() {
-        
         var span_total = document.getElementById('total');
 
         fetch(`/estatistica/total/${idUsuario}`)
@@ -100,7 +100,6 @@
     }
 
     function vitoria() {
-        
         var span_vitoria = document.getElementById('vitoria');
 
         fetch(`/estatistica/vitoria/${idUsuario}`)
@@ -119,7 +118,6 @@
     }
 
     function derrota() {
-        
         var span_derrota = document.getElementById('derrota');
 
         fetch(`/estatistica/derrota/${idUsuario}`)
@@ -138,7 +136,6 @@
     }
 
     function taxa() {
-        
         var span_taxa = document.getElementById('taxa');
 
         fetch(`/estatistica/taxa/${idUsuario}`)
@@ -156,17 +153,38 @@
             });
     }
 
-var lutasOmni;
-var lutasConquista;
-var lutasAllen;
-var lutasMarkSinistro;
-var lutasBattleBeast;
-var lutasThragg;
+   
+var partidas = [];
+var ganhos = []; 
+var resultadosBatalha;
+       function resultados() {
+        fetch(`/estatistica/resultados/${idUsuario}`)
+            .then(res => res.json())
+            .then(res => {
+                resultadosBatalha = res;
+                for (var i = 0; i < resultadosBatalha.length; i++) {
+                    var item = resultadosBatalha[i];
+                    partidas.push(item.partida);
+                    ganhos.push(item.Ganhos);
+                    
+                }
+                verificarFinal();
+            })
+            
 
- function buscarOmni() {
+            
+    }
 
+    
+    var lutasOmni;
+    var lutasConquista;
+    var lutasAllen;
+    var lutasMarkSinistro;
+    var lutasBattleBeast;
+    var lutasThragg;
+
+    function buscarOmni() {
         fetch(`/inimigo/omni/${idUsuario}`)
-        
             .then(res => res.json())
             .then(res => {
                 lutasOmni = res;
@@ -176,10 +194,7 @@ var lutasThragg;
     }
 
     function buscarConquista() {
-        
-
         fetch(`/inimigo/conquista/${idUsuario}`)
-        
             .then(res => res.json())
             .then(res => {
                 lutasConquista = res;
@@ -189,10 +204,7 @@ var lutasThragg;
     }
 
     function buscarBattlebeast() {
-        
-
         fetch(`/inimigo/battlebeast/${idUsuario}`)
-        
             .then(res => res.json())
             .then(res => {
                 lutasBattleBeast = res;
@@ -202,10 +214,7 @@ var lutasThragg;
     }
 
     function buscarAllen() {
-        
-
         fetch(`/inimigo/allen/${idUsuario}`)
-        
             .then(res => res.json())
             .then(res => {
                 lutasAllen = res;
@@ -215,10 +224,7 @@ var lutasThragg;
     }
 
     function buscarMarkSinistro() {
-        
-
         fetch(`/inimigo/marksinistro/${idUsuario}`)
-        
             .then(res => res.json())
             .then(res => {
                 lutasMarkSinistro = res;
@@ -228,10 +234,7 @@ var lutasThragg;
     }
 
     function buscarThragg() {
-       
-
         fetch(`/inimigo/thragg/${idUsuario}`)
-
             .then(res => res.json())
             .then(res => {
                 lutasThragg = res;
@@ -241,7 +244,8 @@ var lutasThragg;
     }
 
     var contadorRespostas = 0;
-    
+
+  
     function buscarTodasAsLutas() {
         contadorRespostas = 0;
         buscarOmni();
@@ -249,17 +253,60 @@ var lutasThragg;
         buscarBattlebeast();
         buscarAllen();
         buscarMarkSinistro();
-        buscarThragg(); 
-       
+        buscarThragg();
     }
 
+    
+    var desempenho;
+    var arrayBatalhas = [];
 
-function verificarFinal() {
-    contadorRespostas++;
-    if (contadorRespostas === 6) {
-        criarGrafico();
+   
+    function desempenhoJogador() {
+        if (!idUsuario) {
+            console.error("idUsuario não definido");
+            verificarFinal(); 
+            return;
+        }
+
+        fetch(`/desempenho/total/${idUsuario}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Erro na resposta: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(res => {
+                desempenho = res;
+
+                arrayBatalhas = []; 
+
+                if (desempenho.length > 0 && desempenho[0].batalhasAnteriores > 0) {
+                    var totalBatalhas = desempenho[0].batalhasAnteriores;
+
+                    for (var i = 1; i <= totalBatalhas; i++) {
+                        arrayBatalhas.push(i);
+                    }
+                }
+
+                
+
+                verificarFinal();
+            })
+            .catch(error => {
+                console.error("Erro no fetch desempenho:", error);
+                verificarFinal();
+            });
     }
-}
+
+    
+    function verificarFinal() {
+        contadorRespostas++;
+        if (contadorRespostas == 7) { 
+            criarGrafico();
+            criarGraficoDesempenho();
+        }
+    }
+
 
 
     function criarGrafico() {
@@ -271,7 +318,14 @@ function verificarFinal() {
                 labels: ['Omni-Man', 'Conquista', 'Allen', 'Mark-Sinistro', 'Battle-Beast', 'Thragg'],
                 datasets: [{
                     label: 'Quantidade de Lutas',
-                    data: [lutasOmni[0].quantidadeLutas, lutasConquista[0].quantidadeLutas, lutasAllen[0].quantidadeLutas, lutasMarkSinistro[0].quantidadeLutas, lutasBattleBeast[0].quantidadeLutas, lutasThragg[0].quantidadeLutas],
+                    data: [
+                        lutasOmni?.[0]?.quantidadeLutas || 0,
+                        lutasConquista?.[0]?.quantidadeLutas || 0,
+                        lutasAllen?.[0]?.quantidadeLutas || 0,
+                        lutasMarkSinistro?.[0]?.quantidadeLutas || 0,
+                        lutasBattleBeast?.[0]?.quantidadeLutas || 0,
+                        lutasThragg?.[0]?.quantidadeLutas || 0
+                    ],
                     backgroundColor: [
                         '#ff0000', '#ffa500', '#0000ff',
                         '#800080', '#008000', '#4444dd'
@@ -289,7 +343,37 @@ function verificarFinal() {
                 }
             }
         });
-    }
+    }
+
+
+    function criarGraficoDesempenho() {
+    const ctx1 = document.getElementById('grafico_barras');
+
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: partidas,
+            datasets: [{
+                label: 'Vitórias (1) e Derrotas (0)',
+                data: ganhos,
+                borderColor: '#0000ff',
+                backgroundColor: '#add8e6',
+                tension: 0.2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
 
     
 </script>

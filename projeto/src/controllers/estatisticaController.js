@@ -48,9 +48,22 @@ function taxa(req, res) {
         });
 }
 
+function resultados(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    estatisticaModel.resultados(idUsuario)
+        .then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.log("\nErro ao pegar resultado:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     estatisticasGerais,
     vitoria,
     derrota,
-    taxa
+    taxa,
+    resultados
 };

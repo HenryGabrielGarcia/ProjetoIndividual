@@ -73,9 +73,30 @@ WHERE
     return database.executar(instrucaoSql);
 }
 
+function resultados(idUsuario) {
+    console.log("PASSEI AQUI!");
+
+    var instrucaoSql = `
+      SELECT 
+    idBatalha AS partida,
+    Ganhos
+FROM 
+    Batalha
+WHERE 
+    Usuário_IdUsuário = ${idUsuario}
+ORDER BY 
+    idBatalha ASC;
+
+
+    `;
+    console.log('Executando a instrução SQL \n' + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     estatisticasGerais,
     vitoria,
     derrota,
-    taxa
+    taxa,
+    resultados
 };

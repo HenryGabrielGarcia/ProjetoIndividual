@@ -19,4 +19,9 @@ router.get("/taxa/:idUsuario", function (req, res) {
     estatisticaController.taxa(req, res);
 })
 
+router.get("/resultados/:idUsuario", function (req, res) {
+    estatisticaController.resultados(req, res);
+})
+
+
 module.exports = router;

@@ -20,6 +20,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var batalhaRouter = require("./src/routes/batalha");
 var estatisticaRouter = require("./src/routes/estatistica");
 var inimigoRouter = require("./src/routes/inimigo");
+var desempenhoRouter = require("./src/routes/desempenho");
 
 
 
@@ -34,6 +35,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/batalha", batalhaRouter);
 app.use("/estatistica", estatisticaRouter);
 app.use("/inimigo", inimigoRouter);
+app.use("/desempenho", desempenhoRouter);
 
 
 
