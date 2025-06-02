@@ -36,6 +36,7 @@ app.use("/batalha", batalhaRouter);
 app.use("/estatistica", estatisticaRouter);
 app.use("/inimigo", inimigoRouter);
 app.use("/desempenho", desempenhoRouter);
+console.log("PASSEI AQUI!");
 
 
 

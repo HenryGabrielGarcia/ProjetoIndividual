@@ -77,15 +77,15 @@ function resultados(idUsuario) {
     console.log("PASSEI AQUI!");
 
     var instrucaoSql = `
-      SELECT 
-    idBatalha AS partida,
-    Ganhos
-FROM 
-    Batalha
-WHERE 
-    Usuário_IdUsuário = ${idUsuario}
-ORDER BY 
-    idBatalha ASC;
+   SELECT 
+            ROW_NUMBER() OVER (ORDER BY idBatalha) AS partida,
+            Ganhos
+        FROM 
+            Batalha
+        WHERE 
+            Usuário_IdUsuário = ${idUsuario}
+        ORDER BY 
+            idBatalha ASC;
 
 
     `;
