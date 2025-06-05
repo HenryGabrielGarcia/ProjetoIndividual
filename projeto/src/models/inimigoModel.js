@@ -52,6 +52,7 @@ function buscarMarkSinistro(idUsuario) {
 }
 
 function buscarThragg(idUsuario) {
+    console.log("peguei o thraagg")
     var instrucaoSql = `
         SELECT COUNT(Vilão_idVilão) AS quantidadeLutas
         FROM Batalha

@@ -6,7 +6,7 @@
 
   <script src="./js/sessao.js"></script>
   <link rel="stylesheet" href="./css/credencial.css">
-  <link rel="shortcut icon" href="../public/assets/icon/icon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/icon/icon.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="/css/navbar.css">
@@ -20,7 +20,6 @@
       <h1 class="titulo">Projeto Invencível</h1>
       <ul class="navbar">
         <li><a href="index.html">Inicial</a></li>
-        <li><a href="personagens.html">Personagem</a></li>
         <li>|</li>
         <li class="agora"><a href="#">Login</a></li>
         <li><a href="cadastro.html">Cadastro</a></li>
@@ -35,7 +34,9 @@
     </div>
     <div class="container">
       <div class="card">
-        <h2>Olá de volta!</h2>
+        <h2>Olá de volta! <br>
+          <span style="font-size: 20px;">Entre e conheça nosso Jogo!</span>
+        </h2>
         <div class="formulario">
           <div class="campo">
             <span>E-mail:</span>
@@ -106,7 +107,7 @@
           document.querySelector(".alerta_erro").style.display = "block";
 
           setTimeout(function () {
-            window.location = "logged/SobreOJogo.html";
+            window.location = "logged/personagens.html";
           }, 1000);
         });
 

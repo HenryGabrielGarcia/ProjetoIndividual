@@ -2,7 +2,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgb(210, 202, 202);
+    background-color: rgb(183, 180, 180);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -10,7 +10,7 @@
 .titulo-principal {
     font-family: 'Bangers', cursive;
     font-size: 2.5rem;
-    color: #000;
+    color: #E51C24;
     text-align: center;
     margin-bottom: 40px;
     letter-spacing: 1px;
@@ -20,7 +20,7 @@
 .secao-sobre {
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #cba5a5;
 }
 
 .secao-sobre:last-of-type {
@@ -39,7 +39,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    color: #333;
+    color:#333;
     margin-bottom: 15px;
 }
 
@@ -116,10 +116,4 @@
     letter-spacing: 1px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.botao-jogar:hover {
-    background-color: #C41C24;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }

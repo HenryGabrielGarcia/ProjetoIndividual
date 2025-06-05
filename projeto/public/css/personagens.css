@@ -28,11 +28,18 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 30px 10px;
   gap: 20px;
 }
 
+.personagens{
+  padding: 30px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
 .card {
+
   background-color: var(--cinza);
   border: 2px solid #444;
   border-radius: 12px;
@@ -50,6 +57,7 @@ h1 {
 
 
 .card.protagonista {
+  
   border-color: var(--amarelo);
 }
 

@@ -1,10 +1,4 @@
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-}
-
 .personagens {
   display: flex;
   justify-content: space-around;

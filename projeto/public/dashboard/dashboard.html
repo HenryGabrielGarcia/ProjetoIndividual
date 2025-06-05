@@ -18,9 +18,10 @@
         <div class="container">
             <h1 class="titulo">Projeto Invencível</h1>
             <ul class="navbar">
+                <li><a href="../logged/personagens.html">Personagens</a></li>
                 <li><a href="../logged/SobreOJogo.html">Sobre o Jogo</a></li>
                 <li>|</li>
-                <li><a href="../logged/battle.html">inimigo</a></li>
+                <li><a href="../logged/battle.html">Batalha</a></li>
                 <li class="agora"><a href="#">Dashboard</a></li>
                 <li>|</li>
                 <li><a href="../index.html">Sair</a></li>
@@ -30,7 +31,9 @@
 
 
     <section class="inicio">
-        <h2>Bem-vindo, <span id="nome_input">jogador!</span> </h2>
+        <h2>Bem-vindo, <span id="nome_input">jogador!</span>
+           
+        </h2>
     </section>
     <section class="chart">
         <div class="card">
@@ -83,6 +86,8 @@
 
     function estatisticasGerais() {
         var span_total = document.getElementById('total');
+
+     
 
         fetch(`/estatistica/total/${idUsuario}`)
             .then(resposta => resposta.json())
@@ -153,11 +158,11 @@
             });
     }
 
-   
-var partidas = [];
-var ganhos = []; 
-var resultadosBatalha;
-       function resultados() {
+
+    var partidas = [];
+    var ganhos = [];
+    var resultadosBatalha;
+    function resultados() {
         fetch(`/estatistica/resultados/${idUsuario}`)
             .then(res => res.json())
             .then(res => {
@@ -166,16 +171,16 @@ var resultadosBatalha;
                     var item = resultadosBatalha[i];
                     partidas.push(item.partida);
                     ganhos.push(item.Ganhos);
-                    
+
                 }
                 verificarFinal();
             })
-            
 
-            
+
+
     }
 
-    
+
     var lutasOmni;
     var lutasConquista;
     var lutasAllen;
@@ -245,7 +250,7 @@ var resultadosBatalha;
 
     var contadorRespostas = 0;
 
-  
+
     function buscarTodasAsLutas() {
         contadorRespostas = 0;
         buscarOmni();
@@ -256,15 +261,15 @@ var resultadosBatalha;
         buscarThragg();
     }
 
-    
+
     var desempenho;
     var arrayBatalhas = [];
 
-   
+
     function desempenhoJogador() {
         if (!idUsuario) {
             console.error("idUsuario não definido");
-            verificarFinal(); 
+            verificarFinal();
             return;
         }
 
@@ -278,7 +283,7 @@ var resultadosBatalha;
             .then(res => {
                 desempenho = res;
 
-                arrayBatalhas = []; 
+                arrayBatalhas = [];
 
                 if (desempenho.length > 0 && desempenho[0].batalhasAnteriores > 0) {
                     var totalBatalhas = desempenho[0].batalhasAnteriores;
@@ -288,7 +293,7 @@ var resultadosBatalha;
                     }
                 }
 
-                
+
 
                 verificarFinal();
             })
@@ -298,10 +303,10 @@ var resultadosBatalha;
             });
     }
 
-    
+
     function verificarFinal() {
         contadorRespostas++;
-        if (contadorRespostas == 7) { 
+        if (contadorRespostas == 7) {
             criarGrafico();
             criarGraficoDesempenho();
         }
@@ -347,33 +352,33 @@ var resultadosBatalha;
 
 
     function criarGraficoDesempenho() {
-    const ctx1 = document.getElementById('grafico_barras');
+        const ctx1 = document.getElementById('grafico_barras');
 
-    new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: partidas,
-            datasets: [{
-                label: 'Vitórias (1) e Derrotas (0)',
-                data: ganhos,
-                borderColor: '#0000ff',
-                backgroundColor: '#add8e6',
-                tension: 0.2
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: partidas,
+                datasets: [{
+                    label: 'Vitórias (1) e Derrotas (0)',
+                    data: ganhos,
+                    borderColor: '#0000ff',
+                    backgroundColor: '#add8e6',
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
-    
+
 </script>

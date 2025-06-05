@@ -58,10 +58,7 @@ function taxa(idUsuario) {
 
     var instrucaoSql = `
        SELECT 
-    COUNT(*) AS totalPartidas,
-    IFNULL(SUM(Ganhos), 0) AS totalVitorias,
-    COUNT(*) - IFNULL(SUM(Ganhos), 0) AS totalDerrotas,
-    IF(COUNT(*) = 0, 0, ROUND(IFNULL(SUM(Ganhos), 0) * 100.0 / COUNT(*), 2)) AS taxaVitoria
+    ROUND(SUM(Ganhos) * 100.0 / COUNT(*), 2) AS taxaVitoria
 FROM 
     Batalha
 WHERE 

@@ -17,7 +17,8 @@
     <div class="container">
       <h1 class="titulo">Projeto Invencível</h1>
       <ul class="navbar">
-       <li><a href="SobreOJogo.html">Sobre o Jogo</a></li>
+        <li><a href="personagens.html">Personagens</a></li>
+        <li><a href="SobreOJogo.html">Sobre o Jogo</a></li>
         <li>|</li>
         <li class="agora"><a href="#">Batalha</a></li>
         <li><a href="../dashboard/dashboard.html">Dashboard</a></li>
@@ -26,6 +27,7 @@
       </ul>
     </div>
   </div>
+
 
   <div class="container">
     <h1>Batalha: Mark vs <span id="nomeVilao"></span></h1>
@@ -102,6 +104,7 @@
   var imagemVilao = document.getElementById("imagemVilao");
   var imagemMark = document.getElementById("imagemMark");
   var botoesAcoes = document.getElementById("botoesAcoes");
+  
 
   function iniciarBatalha() {
     var indiceAleatorio = Math.floor(Math.random() * lista_vilao.length);
@@ -270,15 +273,10 @@ function vilaoPerde(){
     energiaMark -= 20;
     var dano = Math.floor(Math.random() * 21) + 20;
 
-    if (defesaAtivaVilao) {
-      dano = Math.floor(dano / 2);
-      defesaAtivaVilao = false;
-    }
-
     vidaVilao -= dano;
     if (vidaVilao < 0) vidaVilao = 0;
 
-    mensagemTurno.innerHTML = `Mark usou Soco Forte e causou ${dano} de dano!`;
+    mensagemTurno.innerHTML = `Mark usou Soco e causou ${dano} de dano!`;
     atualizarStatus();
 
     if (!verificarFimDoJogo()) {
